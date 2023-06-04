@@ -4,7 +4,19 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Atm atm = new Atm();
-        atm.atmMain();
+        System.out.println("1. 계좌생성");
+        System.out.println("2. ATM");
+
+        Scanner sc = new Scanner(System.in);
+        int number = sc.nextInt();
+
+        if(number == 1)
+        {
+            CreateAccount.creatAccount();
+        }
+        else
+        {
+            Atm.atmMain();
+        }
     }
 }

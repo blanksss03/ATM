@@ -1,24 +1,26 @@
 package ATM;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Atm {
 
-    void sendMoney(User user1, User user2, int money) {
-
-    }
-
-    void atmMain() {
-        User user = new User("심상진", 12345678, 50000);
-        User user2 = new User("김현빈", 1234567, 50000);
-
-        System.out.println("원하시는 메뉴를 선택해주십시오.");
-        System.out.println("1. 예금출금");
-        System.out.println("2. 예금조회");
-        System.out.println("3. 입금");
-        System.out.println("4. 계좌이체");
-
+    static void atmMain() {
         Scanner sc = new Scanner(System.in);
+
+        System.out.println("이름을 입력하여 주십시오.");
+
+        String name = sc.next();
+
+        User user = UserController.UserLoad(name);
+
+        System.out.println("원하시는 거래를 선택하십시오.");
+        System.out.println("1.     예금인출");
+        System.out.println("2.     예금조회");
+        System.out.println("3.     입금");
+        System.out.println("4.     계좌이체");
+        System.out.println("나머지. 프로그램 종료");
+
         String number;
 
         while (true) {
@@ -27,114 +29,66 @@ public class Atm {
             int howMuch;
             switch (number) {
                 case "1":
-                    System.out.println("출금하려는 계좌의 계좌번호를 입력하여 주십시오.");
-                    accountNumber = sc.nextInt();
-                    if (user.getAccountNumber() != accountNumber) {
-                        System.out.println("잘못된 계좌번호 입니다.");
-                        break;
-                    }
-                    else{
-                        System.out.println("얼마를 출금하시겠습니까?");
-                        howMuch = sc.nextInt();
-                        user.minusMoney(howMuch);
-                        System.out.println(user.getName() + "님의 계좌에는 " + user.getMoney() + "원이 있습니다.");
-                        break;
-                    }
+                    System.out.println("금액을 입력하십시오.");
+
+                    howMuch = sc.nextInt();
+                    user.minusMoney(howMuch);
+
+                    System.out.println("=============================================");
+                    System.out.println(howMuch + "원을 출금하였습니다.");
+                    System.out.println("잔액 " + user.getMoney() + " 원");
+                    System.out.println("=============================================");
+
+                    UserController.UserSave(user);
+                    break;
                 case "2":
-                    System.out.println("조회하려는 계좌의 계좌번호를 입력하여 주십시오.");
-                    accountNumber = sc.nextInt();
-                    if (user.getAccountNumber() != accountNumber) {
-                        System.out.println("잘못된 계좌번호 입니다.");
-                        break;
-                    }
-                    else{
-                        System.out.println(user.getName() + "님의 계좌에는 " + user.getMoney() + "원이 있습니다.");
-                        break;
-                    }
+                    System.out.println("=============================================");
+                    System.out.println(user.getName() + "님의 계좌에는 " + user.getMoney() + "원이 있습니다.");
+                    System.out.println("=============================================");
+
+                    break;
                 case "3":
-                    System.out.println("입금하려는 계좌의 계좌번호를 입력하여 주십시오.");
-                    accountNumber = sc.nextInt();
-                    if (user.getAccountNumber() != accountNumber) {
-                        System.out.println("잘못된 계좌번호 입니다.");
-                        break;
-                    }
-                    else{
-                        System.out.println("얼마를 입금하시겠습니까?");
-                        howMuch = sc.nextInt();
-                        user.insertMoney(howMuch);
-                        System.out.println(user.getName() + "님의 계좌에 " + howMuch + "원을 입금하였습니다. 현재 계좌에는 "+ user.getMoney() + "원이 있습니다.");
-                        break;
-                    }
-                case "4": {
-                    System.out.println("돈을 빼려는 계좌의 계좌 번호를 입력해 주십시오.");
-                    accountNumber = sc.nextInt();
-                    if (user.getAccountNumber() == accountNumber) {
-                        System.out.println("보내려는 계좌의 계좌번호를 입력해주십시오.");
-                        accountNumber = sc.nextInt();
-                        if (user2.getAccountNumber() != accountNumber) {
-                            System.out.println("잘못된 계좌번호 입니다.");
-                            break;
-                        }
-                        else{
-                            System.out.println("얼마를 입금하시겠습니까?");
-                            howMuch = sc.nextInt();
-                            user2.insertMoney(howMuch);
-                            user.minusMoney(howMuch);
-                            System.out.println(user.getName() + "님의 계좌에서 " + user2.getName() + "님 계좌로" + howMuch + "원을 입금하였습니다.");
-                            System.out.println(user.getName() + "님의 계좌에는 " + user.getMoney() + "원이 있습니다.");
-                            System.out.println(user2.getName() + "님의 계좌에는 " + user2.getMoney() + "원이 있습니다.");
-                            break;
-                        }
+                    System.out.println("금액을 입력하십시오.");
 
-                    }
-                    else if(user2.getAccountNumber() == accountNumber)
-                    {
-                        System.out.println("보내려는 계좌의 계좌번호를 입력해주십시오.");
-                        accountNumber = sc.nextInt();
-                        if (user.getAccountNumber() != accountNumber) {
-                            System.out.println("잘못된 계좌번호 입니다.");
-                            break;
-                        }
-                        else{
-                            System.out.println("얼마를 입금하시겠습니까?");
-                            howMuch = sc.nextInt();
-                            user.insertMoney(howMuch);
-                            user2.minusMoney(howMuch);
-                            System.out.println(user2.getName() + "님의 계좌에서 " + user.getName() + "님 계좌로 " + howMuch + "원을 입금하였습니다.");
-                            System.out.println(user.getName() + "님의 계좌에는 " + user.getMoney() + "원이 있습니다.");
-                            System.out.println(user2.getName() + "님의 계좌에는 " + user2.getMoney() + "원이 있습니다.");
-                            break;
-                        }
+                    howMuch = sc.nextInt();
+                    user.insertMoney(howMuch);
 
-                    }
-                    else{
-                        System.out.println("잘못된 계좌번호 입니다.");
-                        break;
-                    }
-                }
+                    System.out.println("=============================================");
+                    System.out.println(howMuch + "원을 입금완료. 현재 계좌에는 "+ user.getMoney() + "원이 있습니다.");
+                    System.out.println("잔액 " + user.getMoney() + " 원");
+                    System.out.println("=============================================");
+
+                    UserController.UserSave(user);
+
+                    break;
+
+                case "4":
+                    System.out.println("보내려는 분의 성함을 입력해주십시오.");
+
+                    name = sc.next();
+
+                    User user2 = UserController.UserLoad(name);
+
+                    System.out.println("금액을 입력하십시오.");
+
+                    howMuch = sc.nextInt();
+
+                    user2.insertMoney(howMuch);
+                    user.minusMoney(howMuch);
+
+                    System.out.println(user.getName() + "님의 계좌에서 " + user2.getName() + "님 계좌로 " + howMuch + "원을 입금하였습니다.");
+                    System.out.println(user.getName() + "님의 계좌에는 " + user.getMoney() + "원이 있습니다.");
+                    System.out.println(user2.getName() + "님의 계좌에는 " + user2.getMoney() + "원이 있습니다.");
+
+                    UserController.UserSave(user);
+                    UserController.UserSave(user2);
+
+                    break;
+
                 default:
-                    System.out.println("다시 선택해 주십시오.");
+                    System.exit(0);
             }
 
-//            if(number == "1")
-//            {
-//                System.out.println("출금하려는 계좌의 계좌번호를 입력하여 주십시오.");
-//            }
-//            else if(number == "2")
-//            {
-//                System.out.println("조회하려는 계좌의 계좌번호를 입력하여 주십시오.");
-//            }
-//            else if(number == "3")
-//            {
-//                System.out.println("입금하려는 계좌의 계좌번호를 입력하여 주십시오.");
-//            }
-//            else
-//            {
-//                System.out.println("얼마를 이체하시겠습니까?");
-//
-//                String howMuch = sc.next();
-//
-//            }
         }
     }
 }

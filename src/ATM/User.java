@@ -5,6 +5,12 @@ public class User {
     private int money;
     private int accountNumber;
 
+    public User()
+    {
+        this.name = "";
+        this.accountNumber = 0;
+        this.money = 0;
+    }
     public User(String name, int accountNumber, int money) {
         this.name = name;
         this.accountNumber = accountNumber;
