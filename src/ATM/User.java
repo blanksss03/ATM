@@ -3,15 +3,15 @@ package ATM;
 public class User {
     private String name;
     private int money;
-    private int accountNumber;
+    private String accountNumber;
 
-    public User()
-    {
+    public User() {
         this.name = "";
-        this.accountNumber = 0;
+        this.accountNumber = "000000";
         this.money = 0;
     }
-    public User(String name, int accountNumber, int money) {
+
+    public User(String name, String accountNumber, int money) {
         this.name = name;
         this.accountNumber = accountNumber;
         this.money = money;
@@ -20,6 +20,7 @@ public class User {
     public void insertMoney(int money) {
         this.money += money;
     }
+
     public void minusMoney(int money) {
         this.money -= money;
     }
@@ -36,11 +37,11 @@ public class User {
         return name;
     }
 
-    public void setAccountNumber(int accountNumber) {
+    public void setAccountNumber(String accountNumber) {
         this.accountNumber = accountNumber;
     }
 
-    public int getAccountNumber() {
+    public String getAccountNumber() {
         return accountNumber;
     }
 }

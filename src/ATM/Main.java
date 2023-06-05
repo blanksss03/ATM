@@ -12,7 +12,7 @@ public class Main {
 
         if(number == 1)
         {
-            CreateAccount.creatAccount();
+            AccountManager.createAccount();
         }
         else
         {

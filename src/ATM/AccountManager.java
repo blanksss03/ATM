@@ -2,16 +2,15 @@ package ATM;
 
 import java.util.Scanner;
 
-public class CreateAccount {
-    static void creatAccount()
-    {
+public class AccountManager {
+    static void createAccount() {
         Scanner sc = new Scanner(System.in);
-        while(true) {
+
+        while (true) {
             System.out.println("이름을 입력하여 주십시오. (프로그램 종료는 종료를 입력하시오.)");
 
             String name = sc.next();
-            if (name.equals("종료"))
-            {
+            if (name.equals("종료")) {
                 System.exit(0);
             }
             System.out.println("얼마를 입금하시겠습니까?");
@@ -20,11 +19,11 @@ public class CreateAccount {
 
             System.out.println("계좌번호를 입력하십시오.");
 
-            int AccountNumber = sc.nextInt();
+            String accountNumber = sc.next();
 
-            User user = new User(name, AccountNumber, money);
+            User user = new User(name, accountNumber, money);
 
-            UserController.UserSave(user);
+            UserController.saveUser(user);
         }
 
     }
